@@ -2,14 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   FormBuilder,
-  FormArray,
-  FormControl,
   FormGroup,
   Validators
 } from '@angular/forms';
- import { AuthenticationService } from '../services/authentication.service';
-// private authService: AuthService,
-
+import { AuthenticationService } from '../services/authentication.service';
+import { TokenService } from '../services/token.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +17,8 @@ import {
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
-  constructor( private formBuilder: FormBuilder, private auth: AuthenticationService, private router: Router) {
+  // tslint:disable-next-line:max-line-length
+  constructor( private formBuilder: FormBuilder, private auth: AuthenticationService, private router: Router, private token: TokenService, private user: UserService) {
     this.loginForm = formBuilder.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required]],
@@ -34,10 +33,10 @@ export class LoginComponent implements OnInit {
     this.auth.login(this.loginForm.value)
       .subscribe(
         (token) => {
-          // this.user.setUser(token['user'])
-          // this.token.saveToken(token['idToken']);
+          this.user.setUser(token['user']);
+          this.token.saveToken(token['idToken']);
           console.log('login successful');
-          this.router.navigateByUrl('/home');
+          this.router.navigateByUrl('/users');
         },
         (err) => {
           if (err.status === 400) {

@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const cors = require('cors');
 require('dotenv').config();
 
-const indexRouter = require('./routes/index');
+const questionRouter = require('./routes/questions');
 const usersRouter = require('./routes/users');
 
 const app = express();
@@ -30,6 +30,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
+app.use(require('./middlewares/authenticate'));
+
+app.use('/question', questionRouter);
 // app.use(require('./middlewares/authenticate'));
 app.use('/',(req,res,next)=>{
  
@@ -54,7 +57,10 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json({
+    message: err.message,
+    error: err
+  });
 });
 app.listen(3000);
 
