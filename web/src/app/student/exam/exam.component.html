@@ -1,81 +1,103 @@
-
 <!doctype html>
 <html lang="en">
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="utf-8">
+  <title>Web</title>
+  <base href="/">
 
-    <script src="https://cdn.alloyui.com/3.0.1/aui/aui-min.js"></script>
-    <link href="https://cdn.alloyui.com/3.0.1/aui-css/css/bootstrap.min.css" rel="stylesheet"></link>
-     <title>computer test</title>
-  </head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.alloyui.com/3.0.1/aui/aui-min.js"></script>
+
+</head>
 <body>
- <div class="container">
-    <h2>Question one</h2>
-<div id="myEditor1"> <!-- programing questions started -->
-    
-  </div>
-  <h2>Question two</h2>
-<div id="myEditor2"> <!-- programing questions started -->
-    
-  </div>
-  <h2>Question three</h2>
-<div id="myEditor3"> <!-- programing questions started -->
-    
-  </div>
-
-<!-- javascript to the questions 1 -->
+  
+    <div class="container" ></div>
+    <button style="background: cyan" type="button" onclick="myStart();">Start</button>
+    <!-- -------Timer-------------------------------- -->
 <script type="text/javascript">
-    YUI().use(
-         'aui-ace-editor',
-     function(Y) {
-        new Y.AceEditor(
-                  {
-                    boundingBox: '#myEditor1',
-                    mode: "java"
-            
-                 }
-                  ).render();
-                 }
-                );
+function myStart(secs,elem){
+  var element = document.getElementById(elem);
+  element.innerHTML = "Time Given is 2hrs and Time left "+secs+" seconds";
+  if(secs < 1){
+    clearTimeout(timer);
+    element.innerHTML = '<h3>Time completed!<h3>';
+      // ---when the time is ended it sould submit automaticaly
+      //data.push(document.getElementById(myEditor1));
+      //data.push(document.getElementById(myEditor2));
+      //data.push(document.getElementById(myEditor3));
+      element.innerHTML = '<button style="background: cyan" type="button" onclick="mySubmit()">Submit</button>';
 
-  </script>
+  }
+  secs--;
+  var timer = setTimeout('myStart('+secs+',"'+elem+'")',1000);
 
-  <!-- javascript to the questions 2 -->
-  <script type="text/javascript">
-    YUI().use(
-         'aui-ace-editor',
-     function(Y) {
-        new Y.AceEditor(
-                  {
-                    boundingBox: '#myEditor2',
-                    mode: "java"
-            
-                 }
-                  ).render();
-                 }
-                );
-
-  </script>
-
-  <!-- javascript to the questions 3 -->
-  <script type="text/javascript">
-    YUI().use(
-         'aui-ace-editor',
-     function(Y) {
-        new Y.AceEditor(
-                  {
-                    boundingBox: '#myEditor3',
-                    mode: "html"
-            
-                 }
-                  ).render();
-                 }
-                );
-
-  </script>
-  </div>
+}
+</script>
+<div id="status"></div>
+<script type="text/javascript">myStart(7200, "status")</script>
+    <!-- ----------------------------------------------- -->
+        <h2>Question one</h2>
+    <div id="myEditor1"> <!-- programing questions1 started --> </div>
+    
+      <h2>Question two</h2>
+    <div id="myEditor2"> <!-- programing questions2 started --></div>
+      <h2>Question three</h2>
+    <div id="myEditor3"> <!-- programing questions3 started --> </div>
+    
+    <!-- javascript to the questions 1 -->
+    <script type="text/javascript">
+        YUI().use(
+             'aui-ace-editor',
+         function(Y) {
+            new Y.AceEditor(
+                      {
+                        boundingBox: '#myEditor1',
+                        mode: "java"
+                
+                     }
+                      ).render();
+                     }
+                    );
+    
+      </script>
+    
+      <!-- javascript to the questions 2 -->
+      <script type="text/javascript">
+        YUI().use(
+             'aui-ace-editor',
+         function(Y) {
+            new Y.AceEditor(
+                      {
+                        boundingBox: '#myEditor2',
+                        mode: "java"
+                
+                     }
+                      ).render();
+                     }
+                    );
+    
+      </script>
+    
+      <!-- javascript to the questions 3 -->
+      <script type="text/javascript">
+        YUI().use(
+             'aui-ace-editor',
+         function(Y) {
+            new Y.AceEditor(
+                      {
+                        boundingBox: '#myEditor3',
+                        mode: "html"
+                
+                     }
+                      ).render();
+                     }
+                    );
+    
+      </script>
+    
+    <button style="background: cyan" type="button" onclick="mySubmit()">Submit</button>
+     </div>
+    
+      <!--/container-->
 </body>
 </html>
-  <!--/container-->
