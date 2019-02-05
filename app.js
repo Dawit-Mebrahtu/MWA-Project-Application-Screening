@@ -11,16 +11,20 @@ const questionRouter = require('./routes/questions');
 const usersRouter = require('./routes/users');
 
 const app = express();
-
-mongoose.connect(process.env.DB_URL)
+var db;
+var apiRouter = require('./routes/invitation');
+mongoose.connect('mongodb+srv://diduatlas:gaphoz-vIbcy2-keqbir@cs572-aa8bs.mongodb.net/admission?retryWrites=true')
   .then(() => {
+    db = mongoose.connection.db;
+    
     console.log("Connected to database!");
   })
-  .catch((err) => {
+   .catch((err) => {
     console.log("Connection to database failed!");
     console.log(err);
   });
-
+  app.set('view engine', 'ejs');
+  
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -29,6 +33,22 @@ app.use(cors());
 app.use(require('./middlewares/authenticate'));
 
 app.use('/question', questionRouter);
+// app.use(require('./middlewares/authenticate'));
+app.use('/',(req,res,next)=>{
+ console.log("hello");
+ req.db = db;
+ next();
+});
+app.use('/',(req,res,next)=>{
+  console.log('here');
+  req.db.collection("users").find({}).toArray(function(err, data){
+    console.log(data); // it will print your collection data
+    console.log("here");
+})
+next()
+});
+app.use('/api',apiRouter);
+app.use('/', indexRouter);
 app.use('/user', usersRouter);
 
 // catch 404 and forward to error handler
@@ -49,8 +69,9 @@ app.use(function(err, req, res, next) {
     error: err
   });
 });
+app.listen(3000);
 
-const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+//const PORT = process.env.PORT || 8000;
+//app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
 
 module.exports = app;

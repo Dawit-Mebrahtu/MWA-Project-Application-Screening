@@ -4,10 +4,12 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AdmissionStaffComponentComponent } from './admission-staff-component.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { AgGridModule } from 'ag-grid-angular';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { AuthenticationService } from './services/authentication.service';
 import { AllusersComponent } from './tabular/allusers/allusers.component';
 import { HomeComponent } from './home/home.component';
@@ -16,11 +18,12 @@ import { NgReduxModule, NgRedux } from '@angular-redux/store';
 import { INITIAL_STATE, rootReducer, AppState } from './store';
 import { AuthInterceptor } from './interceptor/auth-interceptor';
 import { QuestionbankComponent } from './questionbank/questionbank.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
+    AdmissionStaffComponentComponent, NavbarComponent,
     LoginComponent,
     SignupComponent,
     AllusersComponent,
@@ -33,7 +36,13 @@ import { QuestionbankComponent } from './questionbank/questionbank.component';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    NgReduxModule
+    NgReduxModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AgGridModule.withComponents(null),
+    HttpClientModule, ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     {
