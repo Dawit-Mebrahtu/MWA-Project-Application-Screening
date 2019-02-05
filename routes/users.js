@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
+const fs = require("fs");
+const RSA_PRIVATE_KEY = fs.readFileSync('./private.key');
 
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
@@ -26,6 +28,14 @@ const jwt = require('jsonwebtoken');
 
 // });
 
+router.get('/list', function(req, res, next) {
+    User.find({}, null, { sort: 'firstName' }, (err, users) => {
+        if (err) console.log(err)
+        res.json(users);
+    })
+
+});
+
 router.post('/validateEmail', (req, res) => {
   User.find({email: req.body.email}, (err, users) => {
       console.log(req.body.email);
@@ -40,9 +50,9 @@ router.post('/signup', (req, res, next) => {
   user.firstName = req.body.firstName;
   user.lastName = req.body.lastName;
   user.email = req.body.email;
-  user.password = req.body.userPassword.password;
+  user.password = req.body.userPassword.password; 
   user.active = req.body.active;
-  user.previledge = req.body.previledge
+  user.previledge = req.body.previledge;
 
   console.log('preparing to save');
   user.save((err, doc) => {
@@ -66,23 +76,19 @@ router.post('/signin', (req, res, next) => {
           if (!user.verifyPassword(credentials.password)) {
               res.status(400).json({
                   "status": "fail",
-                  "message": "pass is not correct!"
+                  "message": "incorrect password!"
               });
           } else {
               //token key
-            //   const token = jwt.sign({}, RSA_PRIVATE_KEY, {
-            //       algorithm: 'RS256',
-            //       expiresIn: 3000,
-            //       subject: credentials.email
-            //   });
+              const token = jwt.sign({}, RSA_PRIVATE_KEY, {
+                  algorithm: 'RS256',
+                  expiresIn: 3000,
+                  subject: credentials.email
+              });
 
-              // TODO: send token expired
-            //   res.status(200).json(
-            //     {idToken: token, user}
-            // );
-
-            res.status(200).json(
-                {data: user}
+            //   TODO: send token expired
+              res.status(200).json(
+                {idToken: token, user}
             );
           }
       } else {
