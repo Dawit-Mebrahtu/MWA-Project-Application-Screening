@@ -22,10 +22,14 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [ "../web/node_modules/bootstrap/dist/css/bootstrap.css",
+            
+            "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.css"
             ],
-            "scripts": ["../web/node_modules/bootstrap/dist/js/bootstrap.js"]
+            "scripts": [
+              "./node_modules/bootstrap/dist/js/bootstrap.js"
+            ]
           },
           "configurations": {
             "production": {

@@ -19,8 +19,12 @@
     "@angular/platform-browser": "~7.2.0",
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
+<<<<<<< HEAD
     "ag-grid-angular": "^20.0.0",
     "ag-grid-community": "^20.0.0",
+=======
+    "@ng-bootstrap/ng-bootstrap": "^4.0.2",
+>>>>>>> 2215c846bb6f3320dcb1a2079f3a01e6278ddc61
     "core-js": "^2.5.4",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
