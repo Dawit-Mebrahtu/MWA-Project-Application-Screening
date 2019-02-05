@@ -1,23 +1,52 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const mongoose = require("mongoose");
+const cors = require('cors');
+require('dotenv').config();
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
 
-var app = express();
-
-
+const app = express();
+var db;
+var apiRouter = require('./routes/invitation');
+mongoose.connect('mongodb+srv://diduatlas:gaphoz-vIbcy2-keqbir@cs572-aa8bs.mongodb.net/admission?retryWrites=true')
+  .then(() => {
+    db = mongoose.connection.db;
+    
+    console.log("Connected to database!");
+  })
+   .catch((err) => {
+    console.log("Connection to database failed!");
+    console.log(err);
+  });
+  app.set('view engine', 'ejs');
+  
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(cors());
+// app.use(require('./middlewares/authenticate'));
+app.use('/',(req,res,next)=>{
+ console.log("hello");
+ req.db = db;
+ next();
+});
+app.use('/',(req,res,next)=>{
+  console.log('here');
+  req.db.collection("users").find({}).toArray(function(err, data){
+    console.log(data); // it will print your collection data
+    console.log("here");
+})
+next()
+});
+app.use('/api',apiRouter);
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -34,5 +63,9 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+app.listen(3000);
+
+//const PORT = process.env.PORT || 8000;
+//app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
 
 module.exports = app;
