@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { GridOptions } from 'ag-grid-community';
-
+import {DbServiceService} from './services/db-service.service';
 
 @Component({
   selector: 'app-admission-staff-component',
@@ -41,7 +41,7 @@ export class AdmissionStaffComponentComponent implements OnInit {
     
   });
   public gridOptions: GridOptions;
-  constructor(private builder: FormBuilder) {
+  constructor(private builder: FormBuilder,private api: DbServiceService) {
     this.gridOptions = <GridOptions>{};
         this.gridOptions.columnDefs = [
             {
@@ -77,7 +77,13 @@ export class AdmissionStaffComponentComponent implements OnInit {
     {email: 'Kabinad.Melaku@gmail.com', status: 'Invitation Sent'},
     ];
    ngOnInit() {
-   
-  }
+    this.api.getInvites().subscribe(res => {
+      console.log(res);
+      //this.books = res;
+    }, err => {
+      console.log(err);
+    });
+}
+  
 
 }
