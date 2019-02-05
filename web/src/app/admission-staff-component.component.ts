@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { GridOptions } from 'ag-grid-community';
-import {DbServiceService} from './services/db-service.service';
+import { DbServiceService } from './services/db-service.service';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-admission-staff-component',
   template: `
   <div style ="padding-left: 100px;">
-    <form id="invitation" [formGroup]="inviteForm" (ngSubmit)="onSubmit()">
+    <form id="invitation" [formGroup]="inviteForm" (ngSubmit)="onFormSubmit()">
     <label for="username">Prospective Student Email</label><br>
       <input type ="text" name="email" [formControl]="email" >
       <div [hidden]="email.valid || email.untouched">
@@ -33,57 +34,64 @@ import {DbServiceService} from './services/db-service.service';
 })
 export class AdmissionStaffComponentComponent implements OnInit {
   sent = true;
-  email = new FormControl('',[
+  myRowData = [];
+  email = new FormControl('', [
     Validators.required, Validators.email
   ])
   inviteForm: FormGroup = this.builder.group({
     email: this.email,
-    
+
   });
   public gridOptions: GridOptions;
-  constructor(private builder: FormBuilder,private api: DbServiceService) {
+  constructor(private builder: FormBuilder, private api: DbServiceService) {
     this.gridOptions = <GridOptions>{};
-        this.gridOptions.columnDefs = [
-            {
-                headerName: "Prospective Student Email",
-                field: "email",
-               
-            },
-            {
-                headerName: "Initation Status",
-                field: "status",
-               
-            },
+    this.gridOptions.columnDefs = [
+      {
+        headerName: "Prospective Student Email",
+        field: "email",
 
-        ];
-        this.gridOptions.rowData = this.myRowData;
-    }
-  
+      },
+      {
+        headerName: "Initation Status",
+        field: "status",
 
-  onSubmit(){
-    for(let i in this.myRowData){
-      if(this.myRowData[i].email == this.email.value){
+      },
+
+    ];
+    this.gridOptions.rowData = this.myRowData;
+  }
+  onFormSubmit(form: FormGroup) {
+    for (let i in this.myRowData) {
+      if (this.myRowData[i].email == this.email.value) {
         this.sent = false;
         return;
       }
     }
-    this.myRowData.push({'email':this.email.value, 'status':'Invitation Sent'});
-    this.gridOptions.api.setRowData(this.myRowData) ;
-    console.log(this.myRowData[0].email)
-    this.sent = true;
-    
+    var data = { 'email': this.email.value, 'status': 'SENT' };
+    const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
+    this.api.postInvites(JSON.stringify(data))
+      .subscribe(res => {
+       
+      }, (err) => {
+        console.log(err);
+      })
+      this.ngOnInit();
   }
-  myRowData = [
-    {email: 'Kabinad.Melaku@gmail.com', status: 'Invitation Sent'},
-    ];
-   ngOnInit() {
+
+
+  
+  ngOnInit() {
     this.api.getInvites().subscribe(res => {
       console.log(res);
-      //this.books = res;
+      console.log(this.myRowData);
+      for (let i in res) {
+        this.myRowData.push({ 'email': res[i].email, 'status': res[i].status });
+      }
+      this.gridOptions.api.setRowData(this.myRowData);
     }, err => {
       console.log(err);
     });
-}
-  
+  }
+
 
 }

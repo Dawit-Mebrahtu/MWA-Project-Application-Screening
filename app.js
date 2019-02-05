@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const cors = require('cors');
 require('dotenv').config();
 
-const indexRouter = require('./routes/index');
+const questionRouter = require('./routes/questions');
 const usersRouter = require('./routes/users');
 
 const app = express();
@@ -30,20 +30,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
+app.use(require('./middlewares/authenticate'));
+
+app.use('/question', questionRouter);
 // app.use(require('./middlewares/authenticate'));
 app.use('/',(req,res,next)=>{
- console.log("hello");
+ 
  req.db = db;
  next();
 });
-app.use('/',(req,res,next)=>{
-  console.log('here');
-  req.db.collection("users").find({}).toArray(function(err, data){
-    console.log(data); // it will print your collection data
-    console.log("here");
-})
-next()
-});
+
 app.use('/api',apiRouter);
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
@@ -61,7 +57,10 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json({
+    message: err.message,
+    error: err
+  });
 });
 app.listen(3000);
 
