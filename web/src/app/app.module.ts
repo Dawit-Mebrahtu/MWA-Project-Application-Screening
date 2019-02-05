@@ -24,7 +24,7 @@ import { AuthenticationService } from './services/authentication.service';
     BrowserModule,
     AppRoutingModule,FormsModule,ReactiveFormsModule,AgGridModule.withComponents(null),
    
-    ,HttpClientModule, ReactiveFormsModule,FormsModule
+    HttpClientModule, ReactiveFormsModule,FormsModule
   ],
   
   providers: [
