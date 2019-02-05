@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap, map } from 'rxjs/operators';
+
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
@@ -35,5 +36,12 @@ getInvites(): Observable<any> {
   return this.http.get('http://localhost:3000/api', httpOptions).pipe(
     map(this.extractData),
     catchError(this.handleError));
+}
+postInvites(data): Observable<any> {
+
+  return this.http.post('http://localhost:3000/api', data, httpOptions)
+    .pipe(
+      catchError(this.handleError)
+    );
 }
 }

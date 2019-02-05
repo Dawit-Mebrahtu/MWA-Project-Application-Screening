@@ -32,18 +32,11 @@ app.use(cookieParser());
 app.use(cors());
 // app.use(require('./middlewares/authenticate'));
 app.use('/',(req,res,next)=>{
- console.log("hello");
+ 
  req.db = db;
  next();
 });
-app.use('/',(req,res,next)=>{
-  console.log('here');
-  req.db.collection("users").find({}).toArray(function(err, data){
-    console.log(data); // it will print your collection data
-    console.log("here");
-})
-next()
-});
+
 app.use('/api',apiRouter);
 app.use('/', indexRouter);
 app.use('/user', usersRouter);

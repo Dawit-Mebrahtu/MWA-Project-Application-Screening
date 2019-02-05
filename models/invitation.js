@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const inviteSchema = new Schema({
    
     status:{ type: String, enum:['SENT', 'ANSWERED','FINISHED']},
-    email: { type: String, unique: true, required: true },
+    email: { type: String, unique : true, required: false },
    
 });
 
