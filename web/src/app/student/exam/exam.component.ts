@@ -9,25 +9,75 @@ import {
 
 @Component({
   selector: 'app-exam',
-  templateUrl: './exam.component.html',
+  template: ` <script type="text/javascript">
+  YUI().use(
+       'aui-ace-editor',
+   function(Y) {
+      new Y.AceEditor(
+                {
+                  boundingBox: '#myEditor1',
+                  mode: "java"
+          
+               }
+                ).render();
+               }
+              );
+
+</script>
+
+<!-- javascript to the questions 2 -->
+<script type="text/javascript">
+  YUI().use(
+       'aui-ace-editor',
+   function(Y) {
+      new Y.AceEditor(
+                {
+                  boundingBox: '#myEditor2',
+                  mode: "java"
+          
+               }
+                ).render();
+               }
+              );
+
+</script>
+
+<!-- javascript to the questions 3 -->
+<script type="text/javascript">
+  YUI().use(
+       'aui-ace-editor',
+   function(Y) {
+      new Y.AceEditor(
+                {
+                  boundingBox: '#myEditor3',
+                  mode: "html"
+          
+               }
+                ).render();
+               }
+              );
+
+</script>`,
   styleUrls: ['./exam.component.css']
 })
 export class ExamComponent implements OnInit {
   loginForm: FormGroup;
   text:string = "ace text editor";
 
-  constructor(private formBuilder: FormBuilder) {
-    this.loginForm = formBuilder.group({
-      email: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-      remember: [1, [Validators.required]]
-    });
+  constructor() {
+  
   }
 
   ngOnInit() {
   }
 
-  onSubmit() {
+
+  
+  myStart(){
+
+
+  }
+  mySubmit() {
    // const login = { email: this.loginForm.value.email, password: this.loginForm.value.password };
     // this.authService
     //   .login(login)
