@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const Question = require('../models/questions');
+var jwt = require('jwt-simple');
 
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
@@ -24,7 +25,10 @@ const Question = require('../models/questions');
 //   });
 
 // });
-router.get('/',function(req,res){
+router.get('/:email/:token',function(req,res){
+    var secret ='fe1a1915a379f3be5394b64d14794932-1506868106675'
+    var payload = jwt.decode(req.params.token, secret);
+    if(payload.email == req.params.email){
     req.db.collection('questions').find({"active":true}).toArray(function(err, data){
         var q = [];
         var t = [];
@@ -39,10 +43,13 @@ router.get('/',function(req,res){
                 q.push(data[n]);
                
         }
-        console.log(q); // it will print your collection data
+        //console.log(q); // it will print your collection data
         console.log("here");
         res.send(q);
-    })});
+    })}
+    else {
+        res.status(403);
+    }});
 
 router.post('/add', function(req, res, next) {
   //save

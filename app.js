@@ -39,9 +39,10 @@ app.use('/',(req,res,next)=>{
  req.db = db;
  next();
 });
+app.use('/invite',inviteRouter);
 app.use('/questions', questionRouter);
 
-app.use('/invite',inviteRouter);
+
 //app.use('/', indexRouter);
 app.use('/user', usersRouter);
 

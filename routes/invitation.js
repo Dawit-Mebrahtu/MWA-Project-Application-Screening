@@ -3,20 +3,22 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var invite = require('../models/invitation.js');
 var mailer = require('../mailer.js');
+var jwt = require('jwt-simple');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
     req.db.collection('invitations').find({}).toArray(function(err, data){
-        console.log(data); // it will print your collection data
-        console.log("here");
         res.send(data);
     })});
     router.post('/', function(req, res, next) {
-       var mailOptions = {
+        var payload ={ email:req.body.email};
+        var secret = 'fe1a1915a379f3be5394b64d14794932-1506868106675'
+       var token = jwt.encode(payload,secret);
+        var mailOptions = {
             from: 'kabinad.melaku@gmail.com', // sender address
             to: req.body.email, // list of receivers
             subject: 'Subject of your email', // Subject line
-            html: '<p>Your html here</p>'// plain text body
+            html: '<a href="http://localhost:3000/questions/' + payload.email + '/' + token + '">Take the exam</a>'// plain text body
           };
         mailer.sendMail(mailOptions,function (err, info) {
             if(err)

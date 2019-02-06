@@ -10,8 +10,8 @@ module.exports = (req, res, next) => {
         || req.url === '/user/validateEmail'
         || req.url === '/invite'
         || req.url === '/invite/invite'
-        || req.url === '/questions'
-        || req.url === '/questions/questions'
+        || req.url === '/questions/'+req.params
+        || req.url === '/questions/kmelaku@mum.edu/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImttZWxha3VAbXVtLmVkdSJ9.F_J0kcvEReHpb66bklGpm0GsfMlFrimzuQMF-LNJjA4'
     ) {
         console.log('no need authorize');
         next();

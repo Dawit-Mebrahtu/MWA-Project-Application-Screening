@@ -38,8 +38,7 @@ getInvites(): Observable<any> {
     catchError(this.handleError));
 }
 postInvites(data): Observable<any> {
-
-  return this.http.post('http://localhost:3000/invite', data, httpOptions)
+return this.http.post('http://localhost:3000/invite', data, httpOptions)
     .pipe(
       catchError(this.handleError)
     );
