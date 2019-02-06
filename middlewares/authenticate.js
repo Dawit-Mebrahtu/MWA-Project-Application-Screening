@@ -8,6 +8,10 @@ module.exports = (req, res, next) => {
     if (req.url === '/'
         || req.url === '/user/signin'
         || req.url === '/user/validateEmail'
+        || req.url === '/invite'
+        || req.url === '/invite/invite'
+        || req.url === '/questions'
+        || req.url === '/questions/questions'
     ) {
         console.log('no need authorize');
         next();

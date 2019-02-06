@@ -12,7 +12,7 @@ const usersRouter = require('./routes/users');
 
 const app = express();
 var db;
-var apiRouter = require('./routes/invitation');
+var inviteRouter = require('./routes/invitation');
 mongoose.connect('mongodb+srv://diduatlas:gaphoz-vIbcy2-keqbir@cs572-aa8bs.mongodb.net/admission?retryWrites=true')
   .then(() => {
     db = mongoose.connection.db;
@@ -32,16 +32,17 @@ app.use(cookieParser());
 app.use(cors());
 app.use(require('./middlewares/authenticate'));
 
-app.use('/question', questionRouter);
+
 // app.use(require('./middlewares/authenticate'));
 app.use('/',(req,res,next)=>{
  
  req.db = db;
  next();
 });
+app.use('/questions', questionRouter);
 
-app.use('/api',apiRouter);
-app.use('/', indexRouter);
+app.use('/invite',inviteRouter);
+//app.use('/', indexRouter);
 app.use('/user', usersRouter);
 
 // catch 404 and forward to error handler

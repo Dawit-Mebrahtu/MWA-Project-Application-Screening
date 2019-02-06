@@ -11,8 +11,9 @@
 </head>
 <body>
   
-    <div class="container" ></div>
-    <button style="background: cyan" type="button" onclick="myStart();">Start</button>
+    <div class="container" >
+    <button style="background: cyan" type="button" (click)="myStart()">Start</button>
+    
     <!-- -------Timer-------------------------------- -->
 <script type="text/javascript">
 function myStart(secs,elem){
@@ -37,7 +38,7 @@ function myStart(secs,elem){
 <script type="text/javascript">myStart(7200, "status")</script>
     <!-- ----------------------------------------------- -->
         <h2>Question one</h2>
-    <div id="myEditor1"> <!-- programing questions1 started --> </div>
+    <div id="myEditor1" ng-model="edit1"> <!-- programing questions1 started --> </div>
     
       <h2>Question two</h2>
     <div id="myEditor2"> <!-- programing questions2 started --></div>
@@ -95,8 +96,8 @@ function myStart(secs,elem){
     
       </script>
     
-    <button style="background: cyan" type="button" onclick="mySubmit()">Submit</button>
-     </div>
+    <button style="background: cyan" type="button" (click)="mySubmit()">Submit</button>
+    </div>
     
       <!--/container-->
 </body>

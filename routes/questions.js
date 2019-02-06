@@ -24,6 +24,25 @@ const Question = require('../models/questions');
 //   });
 
 // });
+router.get('/',function(req,res){
+    req.db.collection('questions').find({"active":true}).toArray(function(err, data){
+        var q = [];
+        var t = [];
+        for(let i=0; i< 3; i++){
+                let n = Math.floor((Math.random() * data.length) + 0)
+                for(let i in t){
+                    if( n == t[i]){
+                        n = Math.floor((Math.random() * data.length) + 0);
+                    }
+                }
+                t.push(n);
+                q.push(data[n]);
+               
+        }
+        console.log(q); // it will print your collection data
+        console.log("here");
+        res.send(q);
+    })});
 
 router.post('/add', function(req, res, next) {
   //save
