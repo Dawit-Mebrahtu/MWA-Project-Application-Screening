@@ -19,6 +19,9 @@ import { INITIAL_STATE, rootReducer, AppState } from './store';
 import { AuthInterceptor } from './interceptor/auth-interceptor';
 import { QuestionbankComponent } from './questionbank/questionbank.component';
 import { SignupComponent } from './signup/signup.component';
+import { EditUserComponent } from './signup/edit-user.component';
+import { EditQuestionComponent } from './questionbank/edit-question.component';
+
 import { ExamComponent} from './student/exam/exam.component';
 import {AceEditorModule} from 'ng2-ace-editor';
 @NgModule({
@@ -29,7 +32,10 @@ import {AceEditorModule} from 'ng2-ace-editor';
     SignupComponent,
     AllusersComponent,
     HomeComponent,
-    QuestionbankComponent,ExamComponent
+    QuestionbankComponent,
+    EditUserComponent,
+    EditQuestionComponent,
+    ExamComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +49,7 @@ import {AceEditorModule} from 'ng2-ace-editor';
     ReactiveFormsModule,
     AgGridModule.withComponents(null),
     HttpClientModule, ReactiveFormsModule,
-    FormsModule,AceEditorModule
+    FormsModule, AceEditorModule
   ],
   providers: [
     {

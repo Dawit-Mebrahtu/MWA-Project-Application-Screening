@@ -6,7 +6,7 @@ import { catchError, tap, map } from 'rxjs/operators';
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
-const apiUrl = "/invite";
+const apiUrl = '/invite';
 @Injectable({
   providedIn: 'root'
 })
@@ -26,19 +26,20 @@ export class DbServiceService {
     }
     // return an observable with a user-facing error message
     return throwError('Something bad happened; please try again later.');
-  };
+  }
 
 private extractData(res: Response) {
-  let body = res;
+  const body = res;
   return body || { };
 }
 getInvites(): Observable<any> {
-  return this.http.get('http://localhost:3000/invite', httpOptions).pipe(
+  return this.http.get('http://localhost:4000/api', httpOptions).pipe(
     map(this.extractData),
     catchError(this.handleError));
 }
 postInvites(data): Observable<any> {
-return this.http.post('http://localhost:3000/invite', data, httpOptions)
+
+  return this.http.post('http://localhost:4000/api', data, httpOptions)
     .pipe(
       catchError(this.handleError)
     );

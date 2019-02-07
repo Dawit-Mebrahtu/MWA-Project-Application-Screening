@@ -5,28 +5,26 @@ const jwt = require('jsonwebtoken');
 const fs = require("fs");
 const RSA_PRIVATE_KEY = fs.readFileSync('./private.key');
 
-/* GET users listing. */
-// router.get('/', function(req, res, next) {
+/* GET user profile. */
+router.get('/profile', function(req, res, next) {
+    User.findOne({email: req.query.email}, (err, profile) => {
+        if (err) console.log(err);
+        // res.send(profile)
+        res.status(200).json(profile);
+    });
 
-//   const user = new User({
-//     firstName: 'Eshetu',
-//     lastName: 'Abebe',
-//     email: 'eabebe7@mum.edu',
-//     password: 'eshie347',
-//     previledge: 'ADMIN'
-//   });
+    console.log('user profile');
+});
 
-//   user.save((err, doc) => {
-//     if (!err) {
-//         console.log('user saved');
-//         res.status(200).json({'sucess': 200});
-//     } else {
-//         console.log("user not saved");
-//         // next(err);
-//     }
-//   });
+router.post('/update', function(req, res, next) {
+    
+    User.updateOne({email: req.body.email}, {$set: {active: req.body.active}}, (err, profile) => {
+        if (err) console.log('unable to update' + err);
+        res.status(200).json(profile);
+    });
 
-// });
+    console.log('user profile updated');
+});
 
 router.get('/list', function(req, res, next) {
     User.find({}, null, { sort: 'firstName' }, (err, users) => {
@@ -76,9 +74,15 @@ router.post('/signin', (req, res, next) => {
           if (!user.verifyPassword(credentials.password)) {
               res.status(400).json({
                   "status": "fail",
-                  "message": "incorrect password!"
+                  "message": "Incorrect password!"
               });
-          } else {
+          } 
+          else if( !user.active) {
+            res.status(401).json({
+                "status": "fail",
+                "message": "Account is deactivated!"
+            });
+          }else {
               //token key
               const token = jwt.sign({}, RSA_PRIVATE_KEY, {
                   algorithm: 'RS256',

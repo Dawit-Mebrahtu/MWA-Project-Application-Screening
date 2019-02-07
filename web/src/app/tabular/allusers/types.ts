@@ -7,4 +7,3 @@ export interface User {
     active: boolean,
     previledge: string
   }
-  

@@ -24,10 +24,11 @@ export class TokenService {
   getUserPayload() {
     const token = this.getToken();
     if (token) {
-      var userPayload = atob(token.split('.')[1]);
+      const userPayload = atob(token.split('.')[1]);
       return JSON.parse(userPayload);
-    } else
-      return null;
+    }
+
+    return null;
   }
 }
 
