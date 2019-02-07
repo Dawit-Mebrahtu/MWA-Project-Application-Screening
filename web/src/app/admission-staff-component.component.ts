@@ -61,6 +61,7 @@ export class AdmissionStaffComponentComponent implements OnInit {
     this.gridOptions.rowData = this.myRowData;
   }
   onFormSubmit(form: FormGroup) {
+    console.log('clicked');
     for (let i in this.myRowData) {
       if (this.myRowData[i].email == this.email.value) {
         this.sent = false;

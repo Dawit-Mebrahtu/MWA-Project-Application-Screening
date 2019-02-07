@@ -24,6 +24,7 @@ import { EditQuestionComponent } from './questionbank/edit-question.component';
 
 import { ExamComponent} from './student/exam/exam.component';
 import {AceEditorModule} from 'ng2-ace-editor';
+import { DoneComponent } from './done.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,8 @@ import {AceEditorModule} from 'ng2-ace-editor';
     QuestionbankComponent,
     EditUserComponent,
     EditQuestionComponent,
-    ExamComponent
+    ExamComponent,
+    DoneComponent
   ],
   imports: [
     BrowserModule,

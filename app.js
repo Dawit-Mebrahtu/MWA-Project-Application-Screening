@@ -10,7 +10,7 @@ require('dotenv').config();
 const questionRouter = require('./routes/questions');
 const usersRouter = require('./routes/users');
 const answerRouter = require('./routes/answer')
-const invite = require('./routes/invitation');
+const inviteRouter = require('./routes/invitation');
 
 const app = express();
 var db;
@@ -53,7 +53,7 @@ app.use('/questions', questionRouter);
 
 
 app.use('/answer', answerRouter);
-app.use('/api',apiRouter);
+//app.use('/api',apiRouter);
 app.use('/question', questionRouter);
 // app.use('/', indexRouter);
 app.use('/user', usersRouter);

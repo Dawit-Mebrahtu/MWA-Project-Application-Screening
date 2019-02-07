@@ -25,7 +25,7 @@ var jwt = require('jwt-simple');
 //   });
 
 // });
-router.get('/', function(req, res, next){
+/*router.get('/', function(req, res, next){
     req.db.collection('questions').find({"active":true}).toArray(function(err, data){
         var q = [];
         var t = [];
@@ -43,11 +43,14 @@ router.get('/', function(req, res, next){
         //console.log(q); // it will print your collection data
         console.log("here");
         res.send(q);
-})});
-/*router.get('/:email/:token',function(req,res){
-    
+})});*/
+router.get('/',function(req,res){
+    var secret ='fe1a1915a379f3be5394b64d14794932-1506868106675'
+    var payload = jwt.decode(req.query.token, secret);
+    var hour = new Date().getHours();
+    if(payload.email == req.query.email && hour - payload.time <= 2){
         req.db.collection('invitations').update(
-            { "email": req.params.email },
+            { "email": req.query.email },
             { $set: { "status": "ANSWERED" } }
          )
     req.db.collection('questions').find({"active":true}).toArray(function(err, data){
@@ -69,9 +72,12 @@ router.get('/', function(req, res, next){
         res.send(q);
     })}
     else {
-        res.status(403);
+        var e = ['can not access question'];
+        res.send(e);
+                
     }});
-    */
+   
+    
 router.post('/add', function(req, res, next) {
   //save
   const questions = new Question();

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap, map } from 'rxjs/operators';
+import { UrlService } from './url.service';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -13,7 +14,7 @@ const httpOptions = {
 export class QuestionServiceService {
 
   
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private urlB:  UrlService) { }
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
@@ -34,13 +35,15 @@ private extractData(res: Response) {
   return body || { };
 }
 getQuestions(email,token): Observable<any> {
-  return this.http.get('http://localhost:3000/questions', httpOptions).pipe(
+  var getUrl =  this.urlB.getUsers(email,token);
+  console.log('built url:'+ getUrl);
+  return this.http.get(getUrl, httpOptions).pipe(
     map(this.extractData),
     catchError(this.handleError));
 }
 postQuestions(data): Observable<any> {
 
-  return this.http.post('http://localhost:3000/questions', data, httpOptions)
+  return this.http.post('http://localhost:4000/questions', data, httpOptions)
     .pipe(
       catchError(this.handleError)
     );
