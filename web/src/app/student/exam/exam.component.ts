@@ -30,32 +30,25 @@ export class ExamComponent implements OnInit {
   id: string;
   pemail;
   ptoken;
+  done="";
   constructor(private api: QuestionServiceService, private answerApi: AnswerServiceService,
      private route: ActivatedRoute,private router: Router) {
   }
-  async ngOnInit() {
-    //this.loadQuestions();
-    await this.route.queryParamMap.subscribe(params => {
-      this.pemail = params.params.email;
-      this.ptoken = params.params.token;
-      console.log(this.pemail);
-      console.log(this.ptoken);
-      this.api.getQuestions(this.pemail, this.ptoken).subscribe(res => {
-        console.log(res);
-
-        for (let i in res) {
-          this.questions.push(res[i].question)
-        }
-        this.Question1 = this.questions[0];
-        this.Question2 = this.questions[1];
-        this.Question3 = this.questions[2];
-
-      }, err => {
-        console.log(err);
-      });
-    })
+   ngOnInit() {
+    document.getElementById("p1").style.visibility = 'hidden';
+document.getElementById("p2").style.visibility = 'hidden';
+document.getElementById("p3").style.visibility = 'hidden';
+    
   }
   mySubmit() {
+    this.done = "Your Answer Has been Recorded, Thank you";
+    document.getElementById("p1").style.visibility = 'hidden';
+document.getElementById("p2").style.visibility = 'hidden';
+document.getElementById("p3").style.visibility = 'hidden';
+document.getElementById("myEditor1").style.visibility = 'hidden';
+              document.getElementById("myEditor2").style.visibility = 'hidden';
+              document.getElementById("myEditor3").style.visibility = 'hidden';
+              document.getElementById('timer').style.visibility ='hidden';
     console.log("submited");
     var a = (document.getElementById('myEditor1').innerText);
     var b = (document.getElementById('myEditor2').innerText);
@@ -76,7 +69,29 @@ export class ExamComponent implements OnInit {
 
 
 
-  myStart() {
+  async myStart() {
+    document.getElementById("p1").style.visibility = 'visible';
+document.getElementById("p2").style.visibility = 'visible';
+document.getElementById("p3").style.visibility = 'visible';
+    await this.route.queryParamMap.subscribe(params => {
+      this.pemail = params.params.email;
+      this.ptoken = params.params.token;
+      console.log(this.pemail);
+      console.log(this.ptoken);
+      this.api.getQuestions(this.pemail, this.ptoken).subscribe(res => {
+        console.log(res);
+
+        for (let i in res) {
+          this.questions.push(res[i].question)
+        }
+        this.Question1 = this.questions[0];
+        this.Question2 = this.questions[1];
+        this.Question3 = this.questions[2];
+
+      }, err => {
+        console.log(err);
+      });
+    })
 
     console.log("my start clicked");
     document.getElementById("start").style.visibility = 'hidden';
@@ -236,90 +251,6 @@ export class ExamComponent implements OnInit {
 
 
 
-
-
-/*
-}
-  async loadQuestions() {
-    await this.api.getQuestions(this.pemail,this.ptoken).subscribe(res => {
-      console.log(res);
-
-      for (let i in res) {
-        this.questions.push(res[i].question)
-      }
-      this.Question1 = this.questions[0];
-      this.Question2 = this.questions[1];
-      this.Question3 = this.questions[2];
-
-    }, err => {
-      console.log(err);
-    });
-}
-mySubmit() {
-
-  var a = (document.getElementById('myEditor1').innerText);
-  var b = (document.getElementById('myEditor2').innerText);
-  var c = (document.getElementById('myEditor3').innerText);
-  var data = { 'question1': this.Question1, 'answer1': a, 'question2': this.Question2, 'answer2': b, 'question3': this.Question3, 'answer3': c };
-  this.answerApi.postAnswers(JSON.stringify(data))
-    .subscribe(res => {
-
-    }, (err) => {
-      console.log(err);
-    })
-}
-
-
-  myStart() {
-    console.log("my start clicked");
-    YUI().use(
-      'aui-ace-editor',
-      function (Y) {
-        new Y.AceEditor(
-          {
-            boundingBox: '#myEditor1',
-            mode: "java",
-
-
-          }
-        ).render();
-
-      }
-    );
-    YUI().use(
-      'aui-ace-editor',
-      function (Y) {
-        new Y.AceEditor(
-          {
-            boundingBox: '#myEditor2',
-            mode: "java"
-
-          }
-        ).render();
-      }
-    );
-    YUI().use(
-      'aui-ace-editor',
-      function (Y) {
-        new Y.AceEditor(
-          {
-            boundingBox: '#myEditor3',
-            mode: "java"
-
-          }
-        ).render();
-      }
-    );
-
-
-
-  }
-
-
-}
-
-
-*/
 
 
 
