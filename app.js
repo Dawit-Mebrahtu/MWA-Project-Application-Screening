@@ -14,7 +14,7 @@ const inviteRouter = require('./routes/invitation');
 
 const app = express();
 var db;
-mongoose.connect('mongodb+srv://diduatlas:gaphoz-vIbcy2-keqbir@cs572-aa8bs.mongodb.net/admission?retryWrites=true')
+mongoose.connect(process.env.DB_URL)
   .then(() => {
     db = mongoose.connection.db;
     
@@ -50,10 +50,7 @@ app.use('/',(req,res,next)=>{
 });
 app.use('/invite', inviteRouter);
 app.use('/questions', questionRouter);
-
-
 app.use('/answer', answerRouter);
-app.use('/question', questionRouter);
 app.use('/user', usersRouter);
 
 // catch 404 and forward to error handler

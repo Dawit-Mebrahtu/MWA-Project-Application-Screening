@@ -34,7 +34,7 @@ export class ExamComponent {
   done="";
   constructor(private api: QuestionServiceService, private answerApi: AnswerServiceService,
      private route: ActivatedRoute,private router: Router) {
-  }
+     }
    ngOnInit() {
     document.getElementById("p1").style.visibility = 'hidden';
 document.getElementById("p2").style.visibility = 'hidden';
@@ -230,6 +230,7 @@ document.getElementById("p3").style.visibility = 'visible';
       }
 
     );
+    }
 
   
 
