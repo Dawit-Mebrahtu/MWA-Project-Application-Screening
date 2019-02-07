@@ -13,6 +13,7 @@ import { AdmissionStaffComponentComponent } from './admission-staff-component.co
 import { EditUserComponent } from './signup/edit-user.component';
 import { EditQuestionComponent } from './questionbank/edit-question.component';
 import { ExamComponent } from './student/exam/exam.component';
+import { EvaluationComponent } from './student/evaluation.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,9 +23,10 @@ export const routes: Routes = [
   { path: 'users', component: AllusersComponent, canActivate: [AuthGuard] },
   { path: 'question', component: QuestionbankComponent, canActivate: [AuthGuard] },
   { path: 'editquestion', component: EditQuestionComponent, canActivate: [AuthGuard] },
+  { path: 'evaluate', component: EvaluationComponent, canActivate: [AuthGuard] },
   { path: 'home', component: NavbarComponent },
-  {path: 'invite', component: AdmissionStaffComponentComponent},
-  {path: 'exam/:email/:token', component:ExamComponent}]
+  {path: 'invite', component: AdmissionStaffComponentComponent, canActivate: [AuthGuard]},
+  {path: 'exam/:email/:token', component: ExamComponent } ];
  /* {path: 'exam',
       children: [
               {

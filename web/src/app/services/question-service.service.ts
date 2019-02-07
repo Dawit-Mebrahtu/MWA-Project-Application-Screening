@@ -33,14 +33,22 @@ private extractData(res: Response) {
   let body = res;
   return body || { };
 }
-getQuestions(email,token): Observable<any> {
-  return this.http.get('http://localhost:3000/questions', httpOptions).pipe(
+
+getAllQuestions(): Observable<any> {
+  return this.http.get('http://localhost:4000/questions/all', httpOptions).pipe(
     map(this.extractData),
     catchError(this.handleError));
 }
+
+getQuestions(email,token): Observable<any> {
+  return this.http.get('http://localhost:4000/questions', httpOptions).pipe(
+    map(this.extractData),
+    catchError(this.handleError));
+}
+
 postQuestions(data): Observable<any> {
 
-  return this.http.post('http://localhost:3000/questions', data, httpOptions)
+  return this.http.post('http://localhost:4000/questions', data, httpOptions)
     .pipe(
       catchError(this.handleError)
     );

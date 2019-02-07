@@ -7,7 +7,22 @@ import { HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-admission-staff-component',
   template: `
-  <div style ="padding-left: 100px;">
+  <div class="container py-5">
+  <div class="row">
+    <div class="col-md-12">
+      <!-- <h2 class="text-center text-white mb-4">Login Form</h2> -->
+      <div class="row">
+        <div class="col-md-6  mx-auto">
+
+          <!-- form card login -->
+          <div class="card rounded-0">
+            <div class="card-header">
+                <h3 class="mb-0">Invitations</h3>
+            </div>
+            <div class="card-body">
+
+
+ 
     <form id="invitation" [formGroup]="inviteForm" (ngSubmit)="onFormSubmit()">
     <label for="username">Prospective Student Email</label><br>
       <input type ="text" name="email" [formControl]="email" >
@@ -28,7 +43,21 @@ import { HttpHeaders } from '@angular/common/http';
     style="width: 400px; height: 300px;" 
     class="ag-theme-balham">
 </ag-grid-angular>
+
+
+            </div>
+            <!--/card-block-->
+          </div>
+          <!-- /form card login -->
+        </div>
+      </div>
+      <!--/row-->
+    </div>
+    <!--/col-->
+  </div>
+  <!--/row-->
 </div>
+<!--/container-->
   `,
   styles: []
 })
@@ -49,12 +78,12 @@ export class AdmissionStaffComponentComponent implements OnInit {
       {
         headerName: "Prospective Student Email",
         field: "email",
-
+        filter: true
       },
       {
         headerName: "Initation Status",
         field: "status",
-
+        filter: true
       },
 
     ];

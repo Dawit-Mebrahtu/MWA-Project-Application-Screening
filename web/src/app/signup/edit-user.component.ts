@@ -11,12 +11,14 @@ import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-edit-user',
-  templateUrl: './edit-user.component.html'
+  templateUrl: './edit-user.component.html',
+  styles: [`.error {color: red}`]
 })
 export class EditUserComponent implements OnInit {
   editForm: FormGroup;
   searchForm: FormGroup;
   userExist = false;
+  error = '';
   account;
 
   constructor(private formBuilder: FormBuilder, private auth: AuthenticationService, private router: Router, private user: UserService) {
@@ -40,6 +42,7 @@ export class EditUserComponent implements OnInit {
   onSearch() {
     // hide result form on the start of each search
     this.userExist = false;
+    this.error = '';
 
     const email = this.searchForm.controls['email'].value;
     console.log(email);
@@ -56,14 +59,16 @@ export class EditUserComponent implements OnInit {
         this.editForm.controls['active'].setValue(this.account.active);
         this.editForm.controls['previledge'].setValue(this.account.previledge);
       }
-    });
-
-  }
+    },
+    err => {
+      if (err.status === 404) {
+      this.error = '*' + err.error.message;
+    }
+  });
+}
 
   onSubmit() {
-    console.log('INSIDE SUBMIT METHOD: ' + JSON.stringify(this.editForm.value));
     this.account.active = this.editForm.controls['active'].value;
-    console.log('INSIDE SUBMIT METHOD: ' + JSON.stringify(this.account));
     this.auth.updateAccount(this.account)
       .subscribe((res) => {
           console.log(res);

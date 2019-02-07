@@ -44,6 +44,13 @@ router.get('/', function(req, res, next){
         console.log("here");
         res.send(q);
 })});
+
+// return all questions
+router.get('/all', function(req, res, next){
+    req.db.collection('questions').find().toArray(function(err, data){
+        console.log("here");
+        res.send(data);
+})});
 /*router.get('/:email/:token',function(req,res){
     
         req.db.collection('invitations').update(

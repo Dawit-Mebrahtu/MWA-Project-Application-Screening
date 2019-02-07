@@ -37,4 +37,16 @@ postAnswers(data): Observable<any> {
       catchError(this.handleError)
     );
 }
+
+getAllAnswers() {
+    return this.http.get('http://localhost:4000/answer/all', httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+}
+
+private extractData(res: Response) {
+  const body = res;
+  return body || { };
+}
+
 }

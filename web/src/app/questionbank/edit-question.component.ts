@@ -1,73 +1,53 @@
+import { QuestionServiceService } from './../services/question-service.service';
 import { Component, OnInit } from '@angular/core';
 import { GridOptions } from 'ag-grid-community';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 
-import { DbServiceService } from '../services/db-service.service';
+// import { DbServiceService } from '../services/db-service.service';
 
 @Component({
   selector: 'app-edit-question',
   templateUrl: './edit-question.component.html',
 })
 export class EditQuestionComponent implements OnInit {
-
-  // sent = true;
   myRowData = [];
-  // email = new FormControl('', [
-  //   Validators.required, Validators.email
-  // ])
-  // inviteForm: FormGroup = this.builder.group({
-  //   email: this.email,
-
-  // });
+  
   public gridOptions: GridOptions;
-  constructor(private builder: FormBuilder, private api: DbServiceService) {
+  constructor(private builder: FormBuilder, private ques: QuestionServiceService) {
     this.gridOptions = <GridOptions>{};
     this.gridOptions.columnDefs = [
       {
-        headerName: "Prospective Student Email",
-        field: "email",
-
+        headerName: "Question",
+        field: "question",
+        resizable: true,
+        minWidth: 500
       },
       {
-        headerName: "Initation Status",
-        field: "status",
-
+        headerName: "Active",
+        field: "active",
+        filter: true,
+        editable: true
       },
 
     ];
     this.gridOptions.rowData = this.myRowData;
   }
-  // onFormSubmit(form: FormGroup) {
-  //   for (let i in this.myRowData) {
-  //     if (this.myRowData[i].email == this.email.value) {
-  //       this.sent = false;
-  //       return;
-  //     }
-  //   }
-  //   var data = { 'email': this.email.value, 'status': 'SENT' };
-  //   const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
-  //   this.api.postInvites(JSON.stringify(data))
-  //     .subscribe(res => {
-       
-  //     }, (err) => {
-  //       console.log(err);
-  //     })
-  //     this.ngOnInit();
-  // }
 
-
-  
   ngOnInit() {
     this.myRowData =[];
-    this.api.getInvites().subscribe(res => {
+    this.ques.getAllQuestions().subscribe(res => {
       for (let i in res) {
-        this.myRowData.push({ 'email': res[i].email, 'status': res[i].status });
+        this.myRowData.push({ 'question': res[i].question, 'active': res[i].active });
       }
       this.gridOptions.api.setRowData(this.myRowData);
     }, err => {
       console.log(err);
     });
   }
+
+  firstDataRendered(params) {
+    params.api.sizeColumnsToFit();
+}
 
 
 }

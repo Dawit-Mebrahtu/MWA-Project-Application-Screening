@@ -20,7 +20,8 @@ import { decodeme } from '../../../../../decoder.js';
   templateUrl: './exam.component.html',
   styleUrls: ['./exam.component.css']
 })
-export class ExamComponent implements OnInit {
+export class ExamComponent {
+  
   name = [];
   Question1: any;
   Question2: any
@@ -31,94 +32,97 @@ export class ExamComponent implements OnInit {
   ptoken;
   constructor(private api: QuestionServiceService, private answerApi: AnswerServiceService, private route: ActivatedRoute) {
   }
-async ngOnInit(){
-  this.loadQuestions();
-  await this.route.paramMap.subscribe(params => {
-   this.pemail = params.params.email;
-   this.ptoken = params.params.token;
+}
+
+
+// async ngOnInit(){
+//   this.loadQuestions();
+//   await this.route.paramMap.subscribe(params => {
+//    this.pemail = params.params.email;
+//    this.ptoken = params.params.token;
    
-})
+// })
 
   
 
-}
-  async loadQuestions() {
-    await this.api.getQuestions(this.pemail,this.ptoken).subscribe(res => {
-      console.log(res);
+// }
+//   async loadQuestions() {
+//     await this.api.getQuestions(this.pemail,this.ptoken).subscribe(res => {
+//       console.log(res);
 
-      for (let i in res) {
-        this.questions.push(res[i].question)
-      }
-      this.Question1 = this.questions[0];
-      this.Question2 = this.questions[1];
-      this.Question3 = this.questions[2];
+//       for (let i in res) {
+//         this.questions.push(res[i].question)
+//       }
+//       this.Question1 = this.questions[0];
+//       this.Question2 = this.questions[1];
+//       this.Question3 = this.questions[2];
 
-    }, err => {
-      console.log(err);
-    });
-}
-mySubmit() {
+//     }, err => {
+//       console.log(err);
+//     });
+// }
+// mySubmit() {
 
-  var a = (document.getElementById('myEditor1').innerText);
-  var b = (document.getElementById('myEditor2').innerText);
-  var c = (document.getElementById('myEditor3').innerText);
-  var data = { 'question1': this.Question1, 'answer1': a, 'question2': this.Question2, 'answer2': b, 'question3': this.Question3, 'answer3': c };
-  this.answerApi.postAnswers(JSON.stringify(data))
-    .subscribe(res => {
+//   var a = (document.getElementById('myEditor1').innerText);
+//   var b = (document.getElementById('myEditor2').innerText);
+//   var c = (document.getElementById('myEditor3').innerText);
+//   var data = { 'question1': this.Question1, 'answer1': a, 'question2': this.Question2, 'answer2': b, 'question3': this.Question3, 'answer3': c };
+//   this.answerApi.postAnswers(JSON.stringify(data))
+//     .subscribe(res => {
 
-    }, (err) => {
-      console.log(err);
-    })
-}
+//     }, (err) => {
+//       console.log(err);
+//     })
+// }
 
 
-  myStart() {
-    console.log("my start clicked");
-    YUI().use(
-      'aui-ace-editor',
-      function (Y) {
-        new Y.AceEditor(
-          {
-            boundingBox: '#myEditor1',
-            mode: "java",
+//   myStart() {
+//     console.log("my start clicked");
+//     YUI().use(
+//       'aui-ace-editor',
+//       function (Y) {
+//         new Y.AceEditor(
+//           {
+//             boundingBox: '#myEditor1',
+//             mode: "java",
             
 
-          }
-        ).render();
+//           }
+//         ).render();
 
-      }
-    );
-    YUI().use(
-      'aui-ace-editor',
-      function (Y) {
-        new Y.AceEditor(
-          {
-            boundingBox: '#myEditor2',
-            mode: "java"
+//       }
+//     );
+//     YUI().use(
+//       'aui-ace-editor',
+//       function (Y) {
+//         new Y.AceEditor(
+//           {
+//             boundingBox: '#myEditor2',
+//             mode: "java"
 
-          }
-        ).render();
-      }
-    );
-    YUI().use(
-      'aui-ace-editor',
-      function (Y) {
-        new Y.AceEditor(
-          {
-            boundingBox: '#myEditor3',
-            mode: "java"
+//           }
+//         ).render();
+//       }
+//     );
+//     YUI().use(
+//       'aui-ace-editor',
+//       function (Y) {
+//         new Y.AceEditor(
+//           {
+//             boundingBox: '#myEditor3',
+//             mode: "java"
 
-          }
-        ).render();
-      }
-    );
+//           }
+//         ).render();
+//       }
+//     );
 
 
 
-  }
+//   }
   
 
-}
+// }
 
 
 
