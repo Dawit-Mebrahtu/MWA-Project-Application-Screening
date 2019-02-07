@@ -9,7 +9,7 @@ require('dotenv').config();
 
 const questionRouter = require('./routes/questions');
 const usersRouter = require('./routes/users');
-const apiRouter = require('./routes/invitation');
+const inviteRouter = require('./routes/invitation');
 
 const app = express();
 var db;
@@ -47,11 +47,10 @@ app.use('/',(req,res,next)=>{
   req.db = db;
   next();
 });
-app.use('/invite',inviteRouter);
+app.use('/invite', inviteRouter);
 app.use('/questions', questionRouter);
 
 
-app.use('/api',apiRouter);
 app.use('/question', questionRouter);
 // app.use('/', indexRouter);
 app.use('/user', usersRouter);
