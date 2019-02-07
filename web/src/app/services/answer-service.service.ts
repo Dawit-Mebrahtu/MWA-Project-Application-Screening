@@ -32,7 +32,7 @@ export class AnswerServiceService {
 
 postAnswers(data): Observable<any> {
 
-  return this.http.post('http://localhost:3000/answer', data, httpOptions)
+  return this.http.post('http://localhost:4000/answer', data, httpOptions)
     .pipe(
       catchError(this.handleError)
     );

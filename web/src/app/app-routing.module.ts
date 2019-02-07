@@ -26,14 +26,14 @@ export const routes: Routes = [
   { path: 'evaluate', component: EvaluationComponent, canActivate: [AuthGuard] },
   { path: 'home', component: NavbarComponent },
   {path: 'invite', component: AdmissionStaffComponentComponent, canActivate: [AuthGuard]},
-  {path: 'exam/:email/:token', component: ExamComponent } ];
- /* {path: 'exam',
+  // {path: 'exam/:email/:token', component: ExamComponent } ];
+ {path: 'exam',
       children: [
               {
                 path: "**",
                 component: ExamComponent
-              }]}]
-*/
+              }]}];
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

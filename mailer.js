@@ -4,7 +4,7 @@ var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
            user: 'kabinad.melaku@gmail.com',
-           pass: ''
+           pass: 'K@binad25'
        }
    });
    const mailOptions = {
@@ -13,5 +13,5 @@ var transporter = nodemailer.createTransport({
     subject: 'Subject of your email', // Subject line
     html: '<p>Your html here</p>'// plain text body
   };
- console.log(decoodeme("kmelaku@mum.edu","eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImttZWxha3VAbXVtLmVkdSIsInRpbWUiOjIwfQ.oCQBGfz5zVykUhDdtwOU9ggRRomSsWFDLkUcEmol6yU"));
+ //console.log(decoodeme("kmelaku@mum.edu","eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImttZWxha3VAbXVtLmVkdSIsInRpbWUiOjIwfQ.oCQBGfz5zVykUhDdtwOU9ggRRomSsWFDLkUcEmol6yU"));
  module.exports = transporter;

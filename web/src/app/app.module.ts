@@ -37,7 +37,8 @@ import { EvaluationComponent } from './student/evaluation.component';
     EditUserComponent,
     EditQuestionComponent,
     ExamComponent,
-    EvaluationComponent
+    EvaluationComponent,
+   // DoneComponent
   ],
   imports: [
     BrowserModule,

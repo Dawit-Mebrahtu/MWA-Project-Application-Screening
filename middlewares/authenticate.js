@@ -10,14 +10,18 @@ module.exports = (req, res, next) => {
         || req.url === '/user/validateEmail'
         || req.url === '/invite'
         || req.url === '/invite/invite'
-        || req.url === '/questions'
-        || req.url === '/questions/questions'
-        || req.url === '/questions/kabinad.melaku@outlook.com/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImthYmluYWQubWVsYWt1QG91dGxvb2suY29tIiwidGltZSI6MTR9.MYUqmxc5RE8isASRwN8cDhYL_aKGaCfqF5mpscg_9cQ'
-        || req.url === '/questions/kmelaku@mum.edu/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImttZWxha3VAbXVtLmVkdSJ9.F_J0kcvEReHpb66bklGpm0GsfMlFrimzuQMF-LNJjA4'
+        || req.url === '/answer'
+      
     ) {
-        console.log('no need authorize');
+        
+
+                console.log('no need authorize');
         next();
-    } else {
+    } 
+    else if(req.url.match('^[^?]*')[0] === '/questions'){
+        console.log('autorized by token');
+        next();}
+        else {
         console.log('must authorize');
 //auth
         let token;
