@@ -25,10 +25,31 @@ var jwt = require('jwt-simple');
 //   });
 
 // });
-router.get('/:email/:token',function(req,res){
-    var secret ='fe1a1915a379f3be5394b64d14794932-1506868106675'
-    var payload = jwt.decode(req.params.token, secret);
-    if(payload.email == req.params.email){
+router.get('/', function(req, res, next){
+    req.db.collection('questions').find({"active":true}).toArray(function(err, data){
+        var q = [];
+        var t = [];
+        for(let i=0; i< 3; i++){
+                let n = Math.floor((Math.random() * data.length) + 0)
+                for(let i in t){
+                    if( n == t[i]){
+                        n = Math.floor((Math.random() * data.length) + 0);
+                    }
+                }
+                t.push(n);
+                q.push(data[n]);
+               
+        }
+        //console.log(q); // it will print your collection data
+        console.log("here");
+        res.send(q);
+})});
+/*router.get('/:email/:token',function(req,res){
+    
+        req.db.collection('invitations').update(
+            { "email": req.params.email },
+            { $set: { "status": "ANSWERED" } }
+         )
     req.db.collection('questions').find({"active":true}).toArray(function(err, data){
         var q = [];
         var t = [];
@@ -50,7 +71,7 @@ router.get('/:email/:token',function(req,res){
     else {
         res.status(403);
     }});
-
+    */
 router.post('/add', function(req, res, next) {
   //save
   const questions = new Question();

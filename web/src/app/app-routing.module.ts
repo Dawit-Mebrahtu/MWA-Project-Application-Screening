@@ -11,7 +11,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { AdmissionStaffComponentComponent } from './admission-staff-component.component';
 import { ExamComponent } from './student/exam/exam.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'signup', component: SignupComponent, canActivate: [AuthGuard] },
   { path: 'signin', component: LoginComponent },
@@ -19,9 +19,14 @@ const routes: Routes = [
   { path: 'question', component: QuestionbankComponent, canActivate: [AuthGuard] },
   { path: 'home', component: NavbarComponent },
   {path: 'invite', component: AdmissionStaffComponentComponent},
-  {path: 'exam', component: ExamComponent}
-];
-
+  {path: 'exam/:email/:token', component:ExamComponent}]
+ /* {path: 'exam',
+      children: [
+              {
+                path: "**",
+                component: ExamComponent
+              }]}]
+*/
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
