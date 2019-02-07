@@ -10,9 +10,8 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class QuestionServiceService {
+export class AnswerServiceService {
 
-  
   constructor(private http: HttpClient) { }
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -29,21 +28,13 @@ export class QuestionServiceService {
     return throwError('Something bad happened; please try again later.');
   };
 
-private extractData(res: Response) {
-  let body = res;
-  return body || { };
-}
-getQuestions(email,token): Observable<any> {
-  return this.http.get('http://localhost:3000/questions', httpOptions).pipe(
-    map(this.extractData),
-    catchError(this.handleError));
-}
-postQuestions(data): Observable<any> {
 
-  return this.http.post('http://localhost:3000/questions', data, httpOptions)
+
+postAnswers(data): Observable<any> {
+
+  return this.http.post('http://localhost:3000/answer', data, httpOptions)
     .pipe(
       catchError(this.handleError)
     );
 }
 }
-

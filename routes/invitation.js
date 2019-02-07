@@ -11,14 +11,16 @@ router.get('/', function(req, res, next) {
         res.send(data);
     })});
     router.post('/', function(req, res, next) {
-        var payload ={ email:req.body.email};
+      var today = new Date();
+      var hour = today.getHours();
+        var payload ={ email:req.body.email, time:hour};
         var secret = 'fe1a1915a379f3be5394b64d14794932-1506868106675'
        var token = jwt.encode(payload,secret);
         var mailOptions = {
             from: 'kabinad.melaku@gmail.com', // sender address
             to: req.body.email, // list of receivers
             subject: 'Subject of your email', // Subject line
-            html: '<a href="http://localhost:3000/questions/' + payload.email + '/' + token + '">Take the exam</a>'// plain text body
+            html: '<a href="http://localhost:4200/exam/:' + payload.email + '/:' + token + '">Take the exam</a>'// plain text body
           };
         mailer.sendMail(mailOptions,function (err, info) {
             if(err)
