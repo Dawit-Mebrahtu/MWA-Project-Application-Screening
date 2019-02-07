@@ -30,7 +30,7 @@ export class QuestionbankComponent implements OnInit {
       console.log(this.questionForm.value);
       await this.api.addQuestion(this.questionForm.value);
 
-      this.router.navigateByUrl('question');
+      this.router.navigateByUrl('/');
 
     } catch (error) {
       console.log(error);

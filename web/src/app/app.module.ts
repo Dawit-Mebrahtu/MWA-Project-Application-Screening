@@ -19,6 +19,8 @@ import { INITIAL_STATE, rootReducer, AppState } from './store';
 import { AuthInterceptor } from './interceptor/auth-interceptor';
 import { QuestionbankComponent } from './questionbank/questionbank.component';
 import { SignupComponent } from './signup/signup.component';
+import { EditUserComponent } from './signup/edit-user.component';
+import { EditQuestionComponent } from './questionbank/edit-question.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { SignupComponent } from './signup/signup.component';
     SignupComponent,
     AllusersComponent,
     HomeComponent,
-    QuestionbankComponent
+    QuestionbankComponent,
+    EditUserComponent,
+    EditQuestionComponent
   ],
   imports: [
     BrowserModule,

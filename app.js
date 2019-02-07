@@ -9,10 +9,11 @@ require('dotenv').config();
 
 const questionRouter = require('./routes/questions');
 const usersRouter = require('./routes/users');
+const apiRouter = require('./routes/invitation');
 
 const app = express();
 var db;
-var apiRouter = require('./routes/invitation');
+
 mongoose.connect('mongodb+srv://diduatlas:gaphoz-vIbcy2-keqbir@cs572-aa8bs.mongodb.net/admission?retryWrites=true')
   .then(() => {
     db = mongoose.connection.db;
@@ -23,7 +24,17 @@ mongoose.connect('mongodb+srv://diduatlas:gaphoz-vIbcy2-keqbir@cs572-aa8bs.mongo
     console.log("Connection to database failed!");
     console.log(err);
   });
-  app.set('view engine', 'ejs');
+
+  // mongoose.connect(process.env.DB_URL)
+  //     .then(() => {
+  //       console.log("Connected to database!");
+  //     })
+  //     .catch((err) => {
+  //       console.log("Connection to database failed!");
+  //       console.log(err);
+  //     });
+
+app.set('view engine', 'ejs');
   
 app.use(logger('dev'));
 app.use(express.json());
@@ -32,16 +43,16 @@ app.use(cookieParser());
 app.use(cors());
 app.use(require('./middlewares/authenticate'));
 
-app.use('/question', questionRouter);
-// app.use(require('./middlewares/authenticate'));
+
+
 app.use('/',(req,res,next)=>{
- 
- req.db = db;
- next();
+  req.db = db;
+  next();
 });
 
 app.use('/api',apiRouter);
-app.use('/', indexRouter);
+app.use('/question', questionRouter);
+// app.use('/', indexRouter);
 app.use('/user', usersRouter);
 
 // catch 404 and forward to error handler
@@ -62,7 +73,7 @@ app.use(function(err, req, res, next) {
     error: err
   });
 });
-app.listen(3000);
+app.listen(4000);
 
 //const PORT = process.env.PORT || 8000;
 //app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));

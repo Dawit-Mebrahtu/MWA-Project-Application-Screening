@@ -14,8 +14,7 @@ import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  templateUrl: './signup.component.html'
 })
 
 export class SignupComponent implements OnInit {
@@ -109,7 +108,7 @@ export class SignupComponent implements OnInit {
     this.auth.signup(this.signupForm.value)
       .subscribe((res) => {
           console.log(res);
-          this.router.navigateByUrl('/home');
+          this.router.navigateByUrl('/');
         },
         (error) => {
           console.log('error occurred');

@@ -1,5 +1,5 @@
 import { AuthenticationService } from './../services/authentication.service';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -12,6 +12,10 @@ export class NavbarComponent {
 
   isLoggedIn() {
     return this.auth.isLoggedIn();
+  }
+
+  isAdmin() {
+    return this.auth.isAdmin();
   }
 
   onLogout() {
