@@ -13,7 +13,6 @@ const apiRouter = require('./routes/invitation');
 
 const app = express();
 var db;
-
 mongoose.connect('mongodb+srv://diduatlas:gaphoz-vIbcy2-keqbir@cs572-aa8bs.mongodb.net/admission?retryWrites=true')
   .then(() => {
     db = mongoose.connection.db;
@@ -44,11 +43,13 @@ app.use(cors());
 app.use(require('./middlewares/authenticate'));
 
 
-
 app.use('/',(req,res,next)=>{
   req.db = db;
   next();
 });
+app.use('/invite',inviteRouter);
+app.use('/questions', questionRouter);
+
 
 app.use('/api',apiRouter);
 app.use('/question', questionRouter);

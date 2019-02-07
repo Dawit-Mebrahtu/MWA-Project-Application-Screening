@@ -81,9 +81,8 @@ export class AdmissionStaffComponentComponent implements OnInit {
 
   
   ngOnInit() {
+    this.myRowData =[];
     this.api.getInvites().subscribe(res => {
-      console.log(res);
-      console.log(this.myRowData);
       for (let i in res) {
         this.myRowData.push({ 'email': res[i].email, 'status': res[i].status });
       }

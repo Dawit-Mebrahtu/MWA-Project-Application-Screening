@@ -22,6 +22,8 @@ import { SignupComponent } from './signup/signup.component';
 import { EditUserComponent } from './signup/edit-user.component';
 import { EditQuestionComponent } from './questionbank/edit-question.component';
 
+import { ExamComponent} from './student/exam/exam.component';
+import {AceEditorModule} from 'ng2-ace-editor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +34,8 @@ import { EditQuestionComponent } from './questionbank/edit-question.component';
     HomeComponent,
     QuestionbankComponent,
     EditUserComponent,
-    EditQuestionComponent
+    EditQuestionComponent,
+    ExamComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,7 @@ import { EditQuestionComponent } from './questionbank/edit-question.component';
     ReactiveFormsModule,
     AgGridModule.withComponents(null),
     HttpClientModule, ReactiveFormsModule,
-    FormsModule
+    FormsModule,AceEditorModule
   ],
   providers: [
     {

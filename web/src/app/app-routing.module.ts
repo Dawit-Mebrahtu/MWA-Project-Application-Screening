@@ -12,6 +12,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { AdmissionStaffComponentComponent } from './admission-staff-component.component';
 import { EditUserComponent } from './signup/edit-user.component';
 import { EditQuestionComponent } from './questionbank/edit-question.component';
+import { ExamComponent } from './student/exam/exam.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,7 +23,8 @@ const routes: Routes = [
   { path: 'question', component: QuestionbankComponent, canActivate: [AuthGuard] },
   { path: 'editquestion', component: EditQuestionComponent, canActivate: [AuthGuard] },
   { path: 'home', component: NavbarComponent },
-  {path: 'invite', component: AdmissionStaffComponentComponent}
+  {path: 'invite', component: AdmissionStaffComponentComponent},
+  {path: 'exam', component: ExamComponent}
 ];
 
 @NgModule({
