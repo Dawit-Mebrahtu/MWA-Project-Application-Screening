@@ -48,14 +48,12 @@ app.use('/',(req,res,next)=>{
   req.db = db;
   next();
 });
-app.use('/invite',inviteRouter);
+app.use('/invite', inviteRouter);
 app.use('/questions', questionRouter);
 
 
 app.use('/answer', answerRouter);
-//app.use('/api',apiRouter);
 app.use('/question', questionRouter);
-// app.use('/', indexRouter);
 app.use('/user', usersRouter);
 
 // catch 404 and forward to error handler

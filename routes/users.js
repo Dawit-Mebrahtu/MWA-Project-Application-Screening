@@ -8,9 +8,15 @@ const RSA_PRIVATE_KEY = fs.readFileSync('./private.key');
 /* GET user profile. */
 router.get('/profile', function(req, res, next) {
     User.findOne({email: req.query.email}, (err, profile) => {
-        if (err) console.log(err);
-        // res.send(profile)
-        res.status(200).json(profile);
+        if( !profile) {
+            res.status(404).json({
+                "status": "fail",
+                "message": "No record found"
+            });
+        } else{
+            res.status(200).json(profile);
+        }
+       
     });
 
     console.log('user profile');

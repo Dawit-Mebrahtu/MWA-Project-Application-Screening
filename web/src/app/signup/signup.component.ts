@@ -25,8 +25,6 @@ export class SignupComponent implements OnInit {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       email: ['', [Validators.required], this.asyncEmailValidator.bind(this)],
-      // password: ['', [Validators.required]],
-      // confirmPassword: ['', [Validators.required]],
       'userPassword': formBuilder.group({
         'password': ['', [
           Validators.required
@@ -45,19 +43,6 @@ export class SignupComponent implements OnInit {
   }
   ngOnInit() {
   }
-
-  // onSubmit() {
-  //   console.log('Signup');
-  //   // const formValues = this.signupForm.value;
-  //   // const user = {
-  //   //   firstName: formValues.firstName,
-  //   //   lastName: formValues.lastName,
-  //   //   email: formValues.email,
-  //   //   password: formValues.password
-  //   // };
-
-  //   // this.authService.signup(user).subscribe( response => console.log(response), error => console.log(error));
-  // }
 
 
   asyncEmailValidator(control: FormControl): Promise<any> | Observable<any> {

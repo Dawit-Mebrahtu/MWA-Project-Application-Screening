@@ -9,9 +9,9 @@
       <li class="nav-item active">
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" routerLink="/invite">Link</a>
-      </li>
+      </li> -->
       <li class="nav-item dropdown" *ngIf="isLoggedIn() && isAdmin()">
         <a class="nav-link dropdown-toggle" href="#" id="navbarStaffDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Account
@@ -31,9 +31,13 @@
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" routerLink="/editquestion">Edit</a>
         </div>
-        <li class="nav-item">
+      </li>
+      <li class="nav-item" *ngIf="isLoggedIn() && isAdmin()">
+          <a class="nav-link" routerLink="/evaluate">Evaluation</a>
+      </li>
+      <li class="nav-item" *ngIf="isLoggedIn() && !isAdmin()">
           <a class="nav-link" routerLink="/invite">Invitation</a>
-        </li>
+      </li>
       
     </ul>
     <div class="form-inline my-2 my-lg-0" *ngIf="!isLoggedIn()">

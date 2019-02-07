@@ -34,6 +34,13 @@ private extractData(res: Response) {
   let body = res;
   return body || { };
 }
+
+getAllQuestions(): Observable<any> {
+  return this.http.get('http://localhost:4000/questions/all', httpOptions).pipe(
+    map(this.extractData),
+    catchError(this.handleError));
+}
+
 getQuestions(email,token): Observable<any> {
   var getUrl =  this.urlB.getUsers(email,token);
   console.log('built url:'+ getUrl);
@@ -41,6 +48,7 @@ getQuestions(email,token): Observable<any> {
     map(this.extractData),
     catchError(this.handleError));
 }
+
 postQuestions(data): Observable<any> {
 
   return this.http.post('http://localhost:4000/questions', data, httpOptions)

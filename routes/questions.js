@@ -43,6 +43,16 @@ var jwt = require('jwt-simple');
         //console.log(q); // it will print your collection data
         console.log("here");
         res.send(q);
+})});
+
+// return all questions*/
+router.get('/all', function(req, res, next){
+    req.db.collection('questions').find().toArray(function(err, data){
+        console.log("here");
+        res.send(data);
+})});
+/*router.get('/:email/:token',function(req,res){
+    
 })});*/
 router.get('/',function(req,res){
     var secret ='fe1a1915a379f3be5394b64d14794932-1506868106675'

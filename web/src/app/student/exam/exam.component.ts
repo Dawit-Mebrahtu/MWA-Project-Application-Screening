@@ -21,7 +21,8 @@ import { Router } from '@angular/router';
   templateUrl: './exam.component.html',
   styleUrls: ['./exam.component.css']
 })
-export class ExamComponent implements OnInit {
+export class ExamComponent {
+  
   name = [];
   Question1: any;
   Question2: any
@@ -230,7 +231,49 @@ document.getElementById("p3").style.visibility = 'visible';
 
     );
 
+  
 
+// }
+//   async loadQuestions() {
+//     await this.api.getQuestions(this.pemail,this.ptoken).subscribe(res => {
+//       console.log(res);
+
+//       for (let i in res) {
+//         this.questions.push(res[i].question)
+//       }
+//       this.Question1 = this.questions[0];
+//       this.Question2 = this.questions[1];
+//       this.Question3 = this.questions[2];
+
+//     }, err => {
+//       console.log(err);
+//     });
+// }
+// mySubmit() {
+
+//   var a = (document.getElementById('myEditor1').innerText);
+//   var b = (document.getElementById('myEditor2').innerText);
+//   var c = (document.getElementById('myEditor3').innerText);
+//   var data = { 'question1': this.Question1, 'answer1': a, 'question2': this.Question2, 'answer2': b, 'question3': this.Question3, 'answer3': c };
+//   this.answerApi.postAnswers(JSON.stringify(data))
+//     .subscribe(res => {
+
+//     }, (err) => {
+//       console.log(err);
+//     })
+// }
+
+
+//   myStart() {
+//     console.log("my start clicked");
+//     YUI().use(
+//       'aui-ace-editor',
+//       function (Y) {
+//         new Y.AceEditor(
+//           {
+//             boundingBox: '#myEditor1',
+//             mode: "java",
+            
 
 
 
@@ -243,7 +286,7 @@ document.getElementById("p3").style.visibility = 'visible';
 
 
 
-}
+// }
 
 
 
