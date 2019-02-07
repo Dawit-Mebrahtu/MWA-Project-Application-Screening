@@ -49,7 +49,7 @@ import {AceEditorModule} from 'ng2-ace-editor';
     ReactiveFormsModule,
     AgGridModule.withComponents(null),
     HttpClientModule, ReactiveFormsModule,
-    FormsModule,AceEditorModule
+    FormsModule, AceEditorModule
   ],
   providers: [
     {
