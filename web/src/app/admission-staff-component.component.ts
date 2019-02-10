@@ -101,7 +101,7 @@ export class AdmissionStaffComponentComponent implements OnInit {
     const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
     this.api.postInvites(JSON.stringify(data))
       .subscribe(res => {
-       
+        this.ngOnInit();
       }, (err) => {
         console.log(err);
       })

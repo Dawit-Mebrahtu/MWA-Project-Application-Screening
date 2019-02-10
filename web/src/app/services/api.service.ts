@@ -21,7 +21,7 @@ export class ApiService {
 
   addQuestion(newQuestion: Question): Promise<any> {
     try {
-      return this.http.post(environment.SERVER_URL + '/question/add', newQuestion).toPromise();
+      return this.http.post(environment.SERVER_URL + '/questions/add', newQuestion).toPromise();
     } catch (error) {
       console.log(error);
     }
